@@ -1,29 +1,15 @@
+import { createContentLoader } from 'vitepress'
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  srcDir: "docs",
+  
   title: "10share-docs",
   description: "A VitePress Site",
-  dir: '../docs',
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
-    ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+  async buildEnd(){
+    const posts = await createContentLoader('docs/*.md').load()
+    console.log('posts: ', posts);
   }
 })

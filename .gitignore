@@ -23,5 +23,5 @@ logs
 .env.*
 !.env.example
 
-docs/.vitepress/.cache
-docs/.vitepress/temp
+.vitepress/cache
+.vscode

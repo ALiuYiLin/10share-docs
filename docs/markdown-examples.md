@@ -1,3 +1,10 @@
+---
+title: '指南'
+date: 2024-03-21
+author: Evan You
+gravatar: eca93da2c67aadafe35d477aa8f454b8
+twitter: '@youyuxi'
+---
 # Markdown Extension Examples
 
 This page demonstrates some of the built-in markdown extensions provided by VitePress.
