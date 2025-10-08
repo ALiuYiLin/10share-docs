@@ -12,7 +12,16 @@ const { site, frontmatter } = useData();
 <template>
   <div>
     <Header></Header>
-    <Sider :menus="posts.menus"></Sider>
-    <Content />
+    <div class="wl-content">
+      <Sider :menus="posts.menus"></Sider>
+      <Content />
+    </div>
   </div>
 </template>
+
+<style scoped>
+.wl-content {
+  display: flex;
+  flex-direction: row;
+}
+</style>

@@ -19,3 +19,13 @@ withDefaults(defineProps<Props>(), {})
     <Menus :menus="menus"></Menus>
   </div>
 </template>
+
+<style scoped>
+.wl-sider {
+  height: calc(100vh - 60px);
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  min-width: 300px;
+  padding-right: 10px;
+}
+</style>
