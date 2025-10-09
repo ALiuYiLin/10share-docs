@@ -22,10 +22,12 @@ withDefaults(defineProps<Props>(), {})
 
 <style scoped>
 .wl-sider {
-  height: calc(100vh - 60px);
+  height: 100vh;
   background-color: #fff;
   border: 1px solid #e5e5e5;
   min-width: 300px;
   padding-right: 10px;
+  overflow-y: scroll;
+  padding-top: 60px;
 }
 </style>

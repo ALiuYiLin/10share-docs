@@ -24,6 +24,11 @@ console.log('site: ', site.value);
 .wl-header {
   height: 60px;
   box-shadow: 0 1px 2px 0 #0000001a;
+  width: 100%;
+  background: #fff;
+  z-index: 10;
+  position: fixed;
+  top: 0;
 }
 .wl-navbar {
   display: flex;

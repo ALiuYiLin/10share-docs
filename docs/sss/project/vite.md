@@ -6,7 +6,6 @@ author: Evan You
 gravatar: eca93da2c67aadafe35d477aa8f454b8
 twitter: '@youyuxi'
 ---
-
 ## vite
 ### vite 安装 
 ```bash

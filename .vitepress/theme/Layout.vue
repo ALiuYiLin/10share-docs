@@ -10,18 +10,34 @@ const { site, frontmatter } = useData();
 </script>
 
 <template>
-  <div>
+  <div class="wl-layout">
     <Header></Header>
     <div class="wl-content">
       <Sider :menus="posts.menus"></Sider>
-      <Content />
+      <main>
+        <Content class="vp-doc"/>
+        <footer>123</footer>
+      </main>
     </div>
   </div>
 </template>
+<style scoped>  
+.wl-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-<style scoped>
 .wl-content {
   display: flex;
   flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+}
+main {
+  flex: 1;
+  width: 100%;
+  overflow-y: scroll;
+  padding-top: 60px;
 }
 </style>
