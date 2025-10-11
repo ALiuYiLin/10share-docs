@@ -36,7 +36,6 @@ export default createContentLoader('./**/*.md', {
   includeSrc: false,
   transform(raw): ResData {
     const menus = getMenus(raw)
-    console.log('menus: ', menus);
     return {
       menus,
       posts: raw
@@ -67,7 +66,7 @@ function formatDate(raw: string): Post['date'] {
 }
 
 
-type Menu = {
+export type Menu = {
   title: string
   url: string
   children: Menu[]

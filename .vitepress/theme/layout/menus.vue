@@ -8,7 +8,7 @@ type Menu = {
   url: string;
   children: Menu[];
 };
-
+ 
 interface Props {
   menus?: Menu[];
 }
@@ -34,6 +34,7 @@ onMounted(()=>{
 })
 
 function handleClick(url: string) {
+  console.log('url: ', url.split(".")[0]);
   router.go(url.split(".")[0]);
 }
 
