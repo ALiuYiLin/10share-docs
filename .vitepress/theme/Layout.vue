@@ -10,23 +10,9 @@ import { onMounted } from "vue";
 const route = useRoute();
 const { frontmatter } = useData();
 
-function getMenus(menus: Menu[], url: string): Menu[] {
-  if (url === "/") {
-    return menus;
-  }
-  const childrenMenus: Menu[] = [];
-  menus.forEach((item) => {
-    if (item.url === url) {
-      childrenMenus.push(...item.children);
-    } else {
-      childrenMenus.push(...getMenus(item.children, url));
-    }
-  });
-  return childrenMenus;
-}
 
 onMounted(() => {
-  console.log(getMenus(posts.menus, "/sss/"));
+  // console.log(getMenus(posts.menus, "/面试题/"));
 });
 </script>
 
@@ -39,7 +25,7 @@ onMounted(() => {
         <div class="main-content">
           <h1>{{ frontmatter.title }}</h1>
           <div v-if="route.path.endsWith('/')">
-            <Folder :menus="getMenus(posts.menus, route.path)"></Folder>
+            <Folder></Folder>
           </div>
           <Content v-else class="vp-doc" />
         </div>
@@ -48,6 +34,7 @@ onMounted(() => {
   </div>
 </template>
 <style scoped>
+
 .main-content > h1{
   font-size: 3rem;
   line-height: normal;
@@ -65,6 +52,7 @@ onMounted(() => {
   flex-direction: row;
   height: 100%;
   overflow: hidden;
+  /* padding-bottom: 60px; */
 }
 main {
   flex: 1;

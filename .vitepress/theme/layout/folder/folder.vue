@@ -1,26 +1,24 @@
 <script lang="ts" setup>
-import { type PropType } from "vue";
-import { type Menu } from "../../posts.data";
-import { useRouter } from "vitepress";
-import { useData } from "vitepress";
+import { computed, ref, watch, watchEffect, type PropType } from "vue";
+import { type Menu ,data as posts} from "../../posts.data";
+import { useRoute, useRouter } from "vitepress";
+const route = useRoute();
 const router = useRouter();
-const props = defineProps({
-  menus: {
-    type: Array as PropType<Menu[]>,
-  },
-});
-const { frontmatter } = useData();
+const menus = computed(() => {
+  console.log('posts.map',posts.map);
+  console.log('route.path',decodeURIComponent(route.path));
+  return posts.map[decodeURIComponent(route.path)].children || []
+})
 
 </script>
 <template>
   <div class="wl-folder">
-    <!-- <h1>{{ frontmatter.title }}</h1> -->
     <div class="main-folder">
       <div v-for="item in menus" class="folder-child">
         <a @click="router.go(item.url)">
-          <p>{{ item.title }}</p>
+          <p>{{ item.children.length > 0 ?'🗃️':'📄' }}{{ item.title }}</p>
           <p v-if="item.children.length > 0">{{ item.children.length }}个项目</p>
-          <p v-else >{{ item.excerpt }}</p>
+          <p v-else class="text--truncate">{{ item.excerpt }}</p>
         </a>
       </div>
     </div>
@@ -28,6 +26,14 @@ const { frontmatter } = useData();
 </template>
 
 <style scoped>
+.text--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.folder-child > a > p:nth-child(1) {
+  font-size: 1.2rem;
+}
 
 .main-folder {
   display: flex;
@@ -35,11 +41,18 @@ const { frontmatter } = useData();
   flex-wrap: wrap;
 }
 .main-folder .folder-child {
-  flex: 0 0 50%;
+  --folder-child-width: 50%;
+  /* flex: 0 0 var(--folder-child-width); */
+  width: var(--folder-child-width);
   margin-bottom: 32px;
   padding-inline: 16px;
 }
 
+@media screen and (max-width: 996px) {
+  .main-folder .folder-child {
+    --folder-child-width: 100%;
+  }
+}
 
 
 .main-folder .folder-child a {
@@ -51,6 +64,10 @@ const { frontmatter } = useData();
   border-radius: 6.4px;
   transition: all 200ms ease;
   transition-property: border, box-shadow;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-folder .folder-child a:hover {
@@ -58,4 +75,5 @@ const { frontmatter } = useData();
   border-color: #2e8555;
   box-shadow: 0 3px 6px 0 #0003;
 }
+
 </style>
