@@ -5,19 +5,6 @@ interface ResData {
   posts: Post[]
 }
 
-interface Post {
-  title: string
-  url: string
-  date: {
-    time: number
-    string: string
-  }
-  excerpt: string | undefined
-  menu: string | undefined
-  src: string | undefined
-}
-
-
 
 interface ContentData {
     url: string;
@@ -26,6 +13,31 @@ interface ContentData {
     frontmatter: Record<string, any>;
     excerpt: string | undefined;
 }
+
+
+interface Post {
+  title: string
+  url: string
+  date: {
+    time: number
+    string: string
+  }
+  excerpt: string | undefined
+  src: string | undefined
+}
+
+export type Menu = {
+  title: string
+  url: string
+  date: {
+    time: number
+    string: string
+  }
+  frontmatter: Record<string, any>;
+  excerpt: string | undefined
+  children: Menu[]
+}
+
 
 
 declare const data: ResData
@@ -42,9 +54,8 @@ export default createContentLoader('./**/*.md', {
         .map(({ url, frontmatter, excerpt, src }) => ({
           title: frontmatter.title,
           url,
-          excerpt,
+          excerpt: excerpt?.match(/<p>(.*?)<\/p>/)?.[1],
           date: formatDate(frontmatter.date),
-          menu: frontmatter.menu,
           src
         }))
         .sort((a, b) => b.date.time - a.date.time)
@@ -66,18 +77,16 @@ function formatDate(raw: string): Post['date'] {
 }
 
 
-export type Menu = {
-  title: string
-  url: string
-  children: Menu[]
-}
+
 
 
 function getMenus(raw: ContentData[], url: string = '/') {
   const menus: Menu[] = raw.filter(p => isDirSub(p.url, url))
     .map(p => ({
       title: p.frontmatter.title,
-      url: p.url,
+      ...p,
+      excerpt: p.excerpt?.match(/<p>(.*?)<\/p>/)?.[1],
+      date: formatDate(p.frontmatter.date),
       children: [...getMenus(raw, p.url)]
     }))
   return menus

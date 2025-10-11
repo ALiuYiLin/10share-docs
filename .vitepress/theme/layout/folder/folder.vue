@@ -1,27 +1,34 @@
 <script lang="ts" setup>
-import { onMounted, type PropType } from 'vue';
-import { type Menu } from '../../posts.data';
-import { useRouter } from 'vitepress';
-const router = useRouter()
+import { type PropType } from "vue";
+import { type Menu } from "../../posts.data";
+import { useRouter } from "vitepress";
+import { useData } from "vitepress";
+const router = useRouter();
 const props = defineProps({
   menus: {
     type: Array as PropType<Menu[]>,
-  }
-})
+  },
+});
+const { frontmatter } = useData();
 
 </script>
 <template>
-  <div class="main-folder">
-    <div v-for="item in menus" class="folder-child">
-      <a @click="router.go(item.url)">
-        <p>{{ item.title }}</p>
-        <p>{{ item.children.length }}</p>
-      </a>
+  <div class="wl-folder">
+    <!-- <h1>{{ frontmatter.title }}</h1> -->
+    <div class="main-folder">
+      <div v-for="item in menus" class="folder-child">
+        <a @click="router.go(item.url)">
+          <p>{{ item.title }}</p>
+          <p v-if="item.children.length > 0">{{ item.children.length }}个项目</p>
+          <p v-else >{{ item.excerpt }}</p>
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
 .main-folder {
   display: flex;
   flex-direction: row;
@@ -32,6 +39,8 @@ const props = defineProps({
   margin-bottom: 32px;
   padding-inline: 16px;
 }
+
+
 
 .main-folder .folder-child a {
   display: block;
@@ -49,5 +58,4 @@ const props = defineProps({
   border-color: #2e8555;
   box-shadow: 0 3px 6px 0 #0003;
 }
-
 </style>

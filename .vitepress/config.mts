@@ -6,5 +6,4 @@ export default defineConfig({
   srcDir: "docs",
   title: "10share-docs",
   description: "A VitePress Site",
-  
 })

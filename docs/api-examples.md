@@ -6,7 +6,8 @@ author: Evan You
 gravatar: eca93da2c67aadafe35d477aa8f454b8
 twitter: '@youyuxi'
 ---
-
+This is an excerpt.
+---
 # Runtime API Examples
 
 This page demonstrates usage of some of the runtime APIs provided by VitePress.
