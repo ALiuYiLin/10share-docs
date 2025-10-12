@@ -7,4 +7,5 @@ export default defineConfig({
   title: "10share-docs",
   description: "A VitePress Site",
   outDir: path.resolve(__dirname, '../dist'),
+  base: '/10share-docs/'
 })
