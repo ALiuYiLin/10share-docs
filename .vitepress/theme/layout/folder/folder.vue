@@ -4,18 +4,23 @@ import { type Menu ,data as posts} from "../../posts.data";
 import { useRoute, useRouter } from "vitepress";
 const route = useRoute();
 const router = useRouter();
+const baseUrl = '/10share-docs'
 const menus = computed(() => {
   console.log('posts.map',posts.map);
   console.log('route.path',decodeURIComponent(route.path));
   return posts.map[decodeURIComponent(route.path).replace('/10share-docs','')].children || []
 })
 
+function go(url:string){
+  router.go(baseUrl + url)
+}
+
 </script>
 <template>
   <div class="wl-folder">
     <div class="main-folder">
       <div v-for="item in menus" class="folder-child">
-        <a @click="router.go(item.url)">
+        <a @click="go(item.url)">
           <p>{{ item.children.length > 0 ?'🗃️':'📄' }}{{ item.title }}</p>
           <p v-if="item.children.length > 0">{{ item.children.length }}个项目</p>
           <p v-else class="text--truncate">{{ item.excerpt }}</p>
