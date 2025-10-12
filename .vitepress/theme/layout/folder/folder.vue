@@ -38,6 +38,7 @@ function go(url:string){
 }
 .folder-child > a > p:nth-child(1) {
   font-size: 1.2rem;
+  padding-bottom: 16px;
 }
 
 .main-folder {

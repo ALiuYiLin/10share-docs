@@ -1,16 +1,17 @@
 <script lang="ts" setup>
+import { type PropType } from 'vue';
 import Menus from './menus.vue';
-type Menu = {
-  title: string
-  url: string
-  children: Menu[]
-}
+import { type Menu } from '../posts.data';
 
-interface Props {
-  menus?: Menu[]
-}
 
-withDefaults(defineProps<Props>(), {})
+
+
+const props = defineProps({
+  menus: {
+    type: Array as PropType<Menu[]>,
+    default: () => [],
+  }
+})
 
 
 </script>
@@ -22,12 +23,21 @@ withDefaults(defineProps<Props>(), {})
 
 <style scoped>
 .wl-sider {
+  --wl-sider-width: 300px;
   height: 100vh;
   background-color: #fff;
   border: 1px solid #e5e5e5;
-  min-width: 300px;
+  width: var(--wl-sider-width);
   padding-right: 10px;
   overflow-y: scroll;
-  padding-top: 60px;
+  padding-top: 76px;
+
+}
+
+
+@media screen and (max-width: 996px) {
+  .wl-sider {
+    --wl-sider-width: 0;
+  }
 }
 </style>

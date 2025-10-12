@@ -24,7 +24,8 @@ declare const data: ResData;
 export { data };
 export default createContentLoader("./**/*.md", {
   excerpt: true,
-  includeSrc: false,
+  // includeSrc: true,
+  // render:true,
   transform(raw): ResData {
     const menus = getMenus(raw);
     const map: Record<string, Menu> = {}

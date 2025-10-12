@@ -6,6 +6,7 @@ import { useData, useRoute } from "vitepress";
 import Folder from "./layout/folder/folder.vue";
 // https://vitepress.dev/reference/runtime-api#usedata
 const route = useRoute();
+console.log('route: ', route);
 const { frontmatter } = useData();
 
 </script>
@@ -22,6 +23,7 @@ const { frontmatter } = useData();
             <Folder></Folder>
           </div>
           <Content v-else class="vp-doc" />
+          <h1 class="main-content--bottom"></h1>
         </div>
       </main>
     </div>
@@ -33,7 +35,7 @@ const { frontmatter } = useData();
   font-size: 3rem;
   line-height: normal;
   padding: 16px;
-  padding-left: 0;
+  padding-left: 16px;
 }
 
 .wl-layout {
@@ -59,5 +61,9 @@ main {
 }
 main .main-content {
   width: 1190px;
+  padding-inline: 16px;
+}
+.main-content--bottom {
+  visibility: hidden;
 }
 </style>

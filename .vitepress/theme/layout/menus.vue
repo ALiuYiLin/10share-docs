@@ -1,17 +1,9 @@
 <script lang="ts" setup>
-import { useRouter } from "vitepress";
+import { useRoute, useRouter } from "vitepress";
 import { onMounted,type PropType, ref } from "vue";
+import { type Menu } from "../posts.data";
 const router = useRouter();
-
-type Menu = {
-  title: string;
-  url: string;
-  children: Menu[];
-};
- 
-interface Props {
-  menus?: Menu[];
-}
+const baseUrl = '/10share-docs';
 
 const menusWrapper = ref<HTMLElement>()
 
@@ -34,8 +26,7 @@ onMounted(()=>{
 })
 
 function handleClick(url: string) {
-  console.log('url: ', url.split(".")[0]);
-  router.go(url.split(".")[0]);
+  router.go(baseUrl + url);
 }
 
 function handleExpend(event: PointerEvent, url: string) {
