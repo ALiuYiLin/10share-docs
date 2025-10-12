@@ -6,8 +6,8 @@ const route = useRoute();
 const router = useRouter();
 const baseUrl = '/10share-docs'
 const menus = computed(() => {
-  console.log('posts.map',posts.map);
-  console.log('route.path',decodeURIComponent(route.path));
+  // console.log('posts.map',posts.map);
+  // console.log('route.path',decodeURIComponent(route.path));
   return posts.map[decodeURIComponent(route.path).replace('/10share-docs','')].children || []
 })
 

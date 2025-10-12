@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import Header from "./layout/header.vue";
 import Sider from "./layout/sider.vue";
-import { type Menu, data as posts } from "./posts.data";
-console.log("posts: ", posts);
+import { data as posts } from "./posts.data";
 import { useData, useRoute } from "vitepress";
 import Folder from "./layout/folder/folder.vue";
-import { onMounted } from "vue";
 // https://vitepress.dev/reference/runtime-api#usedata
 const route = useRoute();
 const { frontmatter } = useData();
 
-
-onMounted(() => {
-  // console.log(getMenus(posts.menus, "/面试题/"));
-});
 </script>
 
 <template>
