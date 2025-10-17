@@ -1,23 +1,17 @@
 <script lang="ts" setup>
-import { type PropType } from 'vue';
-import Menus from './menus.vue';
-import { type Menu } from '../posts.data';
-
-
-
-
-const props = defineProps({
-  menus: {
-    type: Array as PropType<Menu[]>,
-    default: () => [],
-  }
+import { useData } from 'vitepress';
+import { computed } from 'vue';
+import Menus from './menus.vue'
+const { theme } = useData()
+const siderItems = computed(()=>{
+  return theme.value.sidebar[0].items
 })
 
-
+// console.log('siderItems: ', siderItems.value);
 </script>
 <template>
-  <div class="wl-sider">
-    <Menus :menus="menus"></Menus>
+  <div class="wl-sider" ref="sider">
+    <Menus :siderBarItems="siderItems"></Menus>
   </div>
 </template>
 

@@ -2,11 +2,11 @@
 import Header from "./layout/header.vue";
 import Sider from "./layout/sider.vue";
 import { data as posts } from "./posts.data";
+// console.log('posts: ', posts);
 import { useData, useRoute } from "vitepress";
 import Folder from "./layout/folder/folder.vue";
 // https://vitepress.dev/reference/runtime-api#usedata
 const route = useRoute();
-console.log('route: ', route);
 const { frontmatter } = useData();
 
 </script>
@@ -15,7 +15,7 @@ const { frontmatter } = useData();
   <div class="wl-layout">
     <Header></Header>
     <div class="wl-content">
-      <Sider :menus="posts.menus"></Sider>
+      <Sider></Sider>
       <main>
         <div class="main-content">
           <h1>{{ frontmatter.title }}</h1>

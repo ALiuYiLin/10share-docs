@@ -3,8 +3,8 @@ import { useData } from 'vitepress'
 // https://vitepress.dev/reference/runtime-api#usedata
 const { site, frontmatter } = useData()
 
-console.log('frontmatter: ', frontmatter.value);
-console.log('site: ', site.value);
+// console.log('frontmatter: ', frontmatter.value);
+// console.log('site: ', site.value);
 </script>
 
 <template>

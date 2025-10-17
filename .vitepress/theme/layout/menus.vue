@@ -1,32 +1,36 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vitepress";
-import { onMounted,type PropType, ref } from "vue";
-import { type Menu } from "../posts.data";
+import { onMounted, type PropType, ref } from "vue";
+import { type SidebarItem } from "../../types/sider";
 const router = useRouter();
-const baseUrl = '/10share-docs';
+const baseUrl = "/10share-docs";
 
-const menusWrapper = ref<HTMLElement>()
+const siderBarItemsWrapper = ref<HTMLElement>();
 
-const isChildMenusShow = ref<Record<string, boolean>>({});
-const childMenus = ref<Record<string, Element>>({});
+const isChildsiderBarItemsShow = ref<Record<string, boolean>>({});
+const childsiderBarItems = ref<Record<string, Element>>({});
 
-const {menus} = defineProps({
-  menus: {
-    type: Array as PropType<Menu[]>,
+const { siderBarItems } = defineProps({
+  siderBarItems: {
+    type: Array as PropType<SidebarItem[]>,
     default: () => [],
   },
 });
 
-onMounted(()=>{
-    menus.forEach((menu)=>{
-      menu.children.forEach((child)=>{
-        isChildMenusShow.value[child.url] = false
-      })
-    })
-})
 
-function handleClick(url: string) {
-  router.go(baseUrl + url);
+onMounted(() => {
+  siderBarItems.forEach((siderBarItem) => {
+    if (siderBarItem.items) {
+      siderBarItem.items!.forEach((child) => {
+        isChildsiderBarItemsShow.value[child.link!] = false;
+      });
+    }
+  });
+});
+
+function handleClick(item:SidebarItem) {
+  const toUrl = (item.items?.length ?? 0) === 0  ? baseUrl+item.link! : baseUrl+item.link!+'/'
+  router.go(toUrl)
 }
 
 function handleExpend(event: PointerEvent, url: string) {
@@ -35,45 +39,49 @@ function handleExpend(event: PointerEvent, url: string) {
 
   button.classList.toggle("expend-btn-active");
 
-  const collapse = childMenus.value[url] as HTMLElement
-  const inner = collapse.firstElementChild as HTMLElement
+  const collapse = childsiderBarItems.value[url] as HTMLElement;
+  const inner = collapse.firstElementChild as HTMLElement;
 
-  if(!open){
-    menusWrapper.value!.style = `height: auto;`
-    const height = inner.scrollHeight + "px"
-    collapse.style = `height: ${height};`
-  }
-  else{
-    collapse.style = `height: 0; animation: expandBounce 0.35s cubic-bezier(.2,.8,.2,1);`
+  if (!open) {
+    siderBarItemsWrapper.value!.style = `height: auto;`;
+    const height = inner.scrollHeight + "px";
+    collapse.style = `height: ${height};`;
+  } else {
+    collapse.style = `height: 0; animation: expandBounce 0.35s cubic-bezier(.2,.8,.2,1);`;
   }
 }
 
-function handleMounted(el:Element,url: string) {
-  childMenus.value[url] = el;
+function handleMounted(el: Element, url: string) {
+  childsiderBarItems.value[url] = el;
 }
-
-
 </script>
 <template>
-  <div class="menus-wrapper" ref="menusWrapper">
-    <ul class="menu__list">
-      <li v-for="menu in menus" :key="menu.url" class="menu__list-item">
-        <div class="menu__list-item-content" @click="handleClick(menu.url)">
-          <a v-if="menu.children.length === 0">{{ menu.title }}</a>
+  <div class="siderBarItems-wrapper" ref="siderBarItemsWrapper">
+    <ul class="siderBarItem__list">
+      <li
+        v-for="siderBarItem in siderBarItems"
+        :key="siderBarItem.link"
+        class="siderBarItem__list-item"
+      >
+        <div
+          class="siderBarItem__list-item-content"
+          @click="handleClick(siderBarItem)"
+        >
+          <a v-if="(siderBarItem.items?.length ?? 0) === 0">{{siderBarItem.text}}</a>
           <template v-else>
-            <a>{{ menu.title }}</a>
+            <a>{{ siderBarItem.text }}</a>
             <div
               aria-expanded="false"
               class="expend-btn"
-              @click.stop="handleExpend($event, menu.url)"
+              @click.stop="handleExpend($event, siderBarItem.link!)"
             ></div>
           </template>
         </div>
         <Menus
-          ref="menusRef"
-          v-if="menu.children.length !== 0"
-          @vue:mounted="({el})=>handleMounted(el as Element, menu.url)"
-          :menus="menu.children"
+          ref="siderBarItemsRef"
+          v-if="siderBarItem.items && siderBarItem.items!.length !== 0"
+          @vue:mounted="({el})=>handleMounted(el as Element, siderBarItem.link!)"
+          :siderBarItems="siderBarItem.items"
         ></Menus>
       </li>
     </ul>
@@ -81,14 +89,14 @@ function handleMounted(el:Element,url: string) {
 </template>
 
 <style scoped>
-.menu__list {
+.siderBarItem__list {
   padding-left: 10px;
 }
 
-.menu__list-item {
+.siderBarItem__list-item {
   list-style: none;
 }
-.menu__list-item-content {
+.siderBarItem__list-item-content {
   padding-left: 10px;
   display: flex;
   flex-direction: row;
@@ -98,12 +106,12 @@ function handleMounted(el:Element,url: string) {
   height: 32px;
 }
 
-.menu__list-item-content:hover {
+.siderBarItem__list-item-content:hover {
   background-color: #f2f2f2;
   cursor: pointer;
 }
 
-.menu__list-item-content .expend-btn {
+.siderBarItem__list-item-content .expend-btn {
   height: 100%;
   width: 44px;
   display: flex;
@@ -111,7 +119,7 @@ function handleMounted(el:Element,url: string) {
   justify-content: center;
 }
 
-.menu__list-item-content .expend-btn::before {
+.siderBarItem__list-item-content .expend-btn::before {
   content: "";
   display: inline-block;
   width: 16px;
@@ -121,35 +129,43 @@ function handleMounted(el:Element,url: string) {
   transition: transform 220ms ease-in-out;
 }
 
-.menu__list-item-content .expend-btn-active::before {
+.siderBarItem__list-item-content .expend-btn-active::before {
   transform: rotate(180deg);
 }
 
-.menu__list-item-content .expend-btn:hover {
+.siderBarItem__list-item-content .expend-btn:hover {
   background-color: #e6e6e6;
 }
 
-
 @keyframes expandBounce {
-  0%   { transform: scaleY(0.3); opacity: 0; }
-  50%  { transform: scaleY(1.15); opacity: 1; }
-  70%  { transform: scaleY(0.95); }
-  100% { transform: scaleY(1); opacity: 1; }
+  0% {
+    transform: scaleY(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(1.15);
+    opacity: 1;
+  }
+  70% {
+    transform: scaleY(0.95);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
-
-.menus-wrapper {
+.siderBarItems-wrapper {
   height: 0;
   overflow: hidden;
-  transition: height 0.35s cubic-bezier(.2,.8,.2,1);
+  transition: height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.menus-wrapper:nth-child(1) {
+.siderBarItems-wrapper:nth-child(1) {
   height: auto;
 }
-.menus-wrapper .menu__list {
+.siderBarItems-wrapper .siderBarItem__list {
   transform-origin: top;
   animation: none;
 }
-
 </style>

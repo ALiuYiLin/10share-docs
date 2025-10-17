@@ -14,6 +14,7 @@ import './styles/components/vp-sponsor.css'
 export default {
   Layout,
   enhanceApp({ app, router, siteData }) {
+    // console.log('siteData: ', siteData);
     // ...
   }
 } satisfies Theme

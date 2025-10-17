@@ -1,29 +1,37 @@
 <script lang="ts" setup>
-import { computed, ref, watch, watchEffect, type PropType } from "vue";
-import { type Menu ,data as posts} from "../../posts.data";
 import { useRoute, useRouter } from "vitepress";
+import {  ref, watch } from "vue";
+import { useSiderbar } from "../../composables/siderbar";
+import { type SidebarItem } from "../../../types/sider";
 const route = useRoute();
-const router = useRouter();
+const router = useRouter()
+const { siderBarItemsMap } = useSiderbar()
 const baseUrl = '/10share-docs'
-const menus = computed(() => {
-  // console.log('posts.map',posts.map);
-  // console.log('route.path',decodeURIComponent(route.path));
-  return posts.map[decodeURIComponent(route.path).replace('/10share-docs','')].children || []
-})
+const currentSiderBar = ref<SidebarItem|null>(null)
 
-function go(url:string){
-  router.go(baseUrl + url)
+watch(()=>route.path,(newPath)=>{
+  let url = decodeURIComponent(newPath)
+  url = url.endsWith('/') ? url.slice(0, -1) : url
+  url = url.replace(baseUrl,'')
+  currentSiderBar.value = siderBarItemsMap[url]
+},{immediate: true})
+
+
+function go(item: SidebarItem){
+  let url = !!item.items ? baseUrl + item.link + '/' : baseUrl + item.link
+  console.log('url: ', url);
+  router.go(url)
 }
 
 </script>
 <template>
   <div class="wl-folder">
     <div class="main-folder">
-      <div v-for="item in menus" class="folder-child">
-        <a @click="go(item.url)">
-          <p>{{ item.children.length > 0 ?'🗃️':'📄' }}{{ item.title }}</p>
-          <p v-if="item.children.length > 0">{{ item.children.length }}个项目</p>
-          <p v-else class="text--truncate">{{ item.excerpt }}</p>
+      <div v-for="item in currentSiderBar?.items" class="folder-child">
+        <a @click="go(item)">
+          <p>{{ !!item.items  ?'🗃️':'📄' }}{{ item.text }}</p>
+          <p v-if="!!item.items">{{ item.items!.length }}个项目</p>
+          <p v-else class="text--truncate">{{  }}</p>
         </a>
       </div>
     </div>
