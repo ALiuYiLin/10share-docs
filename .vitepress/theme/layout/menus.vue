@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vitepress";
 import { onMounted, type PropType, ref } from "vue";
-import { type SidebarItem } from "../../types/sider";
+import { type SidebarItem } from "@/types/sider";
+import { hasChildren } from "@/theme/utils/sider";
+import { useSiderbar } from "../composables/siderbar";
 const router = useRouter();
 const baseUrl = "/10share-docs";
+const { getItemText } = useSiderbar()
 
 const siderBarItemsWrapper = ref<HTMLElement>();
 
@@ -67,7 +70,7 @@ function handleMounted(el: Element, url: string) {
           class="siderBarItem__list-item-content"
           @click="handleClick(siderBarItem)"
         >
-          <a v-if="(siderBarItem.items?.length ?? 0) === 0">{{siderBarItem.text}}</a>
+          <a v-if="hasChildren(siderBarItem)">{{getItemText(siderBarItem)}}</a>
           <template v-else>
             <a>{{ siderBarItem.text }}</a>
             <div

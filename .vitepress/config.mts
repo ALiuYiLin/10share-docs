@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import path from "path";
-import { createContentLoader, defineConfig } from "vitepress";
+import { defineConfig } from "vitepress";
 import { SidebarItem } from "./types/sider";
 // https://vitepress.dev/reference/site-config
 const docsRoot = path.resolve(__dirname, "../docs");
@@ -22,6 +22,13 @@ export default defineConfig({
   themeConfig: {
     sidebar: [buildSidebar(docsRoot)],
   },
+  vite: {
+    resolve: {
+      alias: {
+        "@":path.resolve(__dirname)
+      }
+    }
+  }
 });
 
 

@@ -3,9 +3,9 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["esnext"],
-    "types": ["node","vite/client"],
-
+    "lib": ["esnext","DOM"],
+    // "types": ["vitepress"],
+    // "typeRoots": ["./.vitepress/types"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -19,6 +19,15 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [".vitepress/*"]
+    }
   },
+  "include": [
+    ".vitepress",
+    ".vitepress/theme/index.ts",
+    ".vitepress/**/*.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

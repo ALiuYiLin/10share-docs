@@ -1,37 +1,18 @@
 <script lang="ts" setup>
-import { useRoute, useRouter } from "vitepress";
-import {  ref, watch } from "vue";
-import { useSiderbar } from "../../composables/siderbar";
-import { type SidebarItem } from "../../../types/sider";
-const route = useRoute();
-const router = useRouter()
-const { siderBarItemsMap } = useSiderbar()
-const baseUrl = '/10share-docs'
-const currentSiderBar = ref<SidebarItem|null>(null)
-
-watch(()=>route.path,(newPath)=>{
-  let url = decodeURIComponent(newPath)
-  url = url.endsWith('/') ? url.slice(0, -1) : url
-  url = url.replace(baseUrl,'')
-  currentSiderBar.value = siderBarItemsMap[url]
-},{immediate: true})
-
-
-function go(item: SidebarItem){
-  let url = !!item.items ? baseUrl + item.link + '/' : baseUrl + item.link
-  console.log('url: ', url);
-  router.go(url)
-}
+import { useSiderbar } from "@/theme/composables/siderbar";
+import { useRouterUtils } from "@/theme/utils";
+const { routerPushBySiderBarItem } = useRouterUtils()
+const { currentSiderBarItem, getPageExcerpt,getItemText} = useSiderbar()
 
 </script>
 <template>
   <div class="wl-folder">
     <div class="main-folder">
-      <div v-for="item in currentSiderBar?.items" class="folder-child">
-        <a @click="go(item)">
-          <p>{{ !!item.items  ?'🗃️':'📄' }}{{ item.text }}</p>
+      <div v-for="item in currentSiderBarItem?.items" class="folder-child">
+        <a @click="routerPushBySiderBarItem(item)">
+          <p>{{ !!item.items  ?'🗃️':'📄' }}{{ getItemText(item) }}</p>
           <p v-if="!!item.items">{{ item.items!.length }}个项目</p>
-          <p v-else class="text--truncate">{{  }}</p>
+          <p v-else class="text--truncate">{{ getPageExcerpt(item) }}</p>
         </a>
       </div>
     </div>
