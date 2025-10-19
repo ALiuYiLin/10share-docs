@@ -1,10 +1,12 @@
-export type Sidebar = SidebarItem[] | SidebarMulti;
 
-export interface SidebarMulti {
+// sidebar.d.ts
+declare type Sidebar = SidebarItem[] | SidebarMulti;
+
+declare interface SidebarMulti {
   [path: string]: SidebarItem[] | { items: SidebarItem[]; base: string };
 }
 
-export type SidebarItem = {
+declare type SidebarItem = {
   /**
    * The text label of the item.
    */

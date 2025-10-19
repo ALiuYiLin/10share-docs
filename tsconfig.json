@@ -4,30 +4,24 @@
     "target": "esnext",
     "moduleResolution": "bundler",
     "lib": ["esnext","DOM"],
-    // "types": ["vitepress"],
-    // "typeRoots": ["./.vitepress/types"],
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@/*": [".vitepress/*"]
-    }
+      "@/*": [".vitepress/src/*"]
+    },
+    "strict": true,
+    "jsx": "preserve"
   },
+
   "include": [
-    ".vitepress",
-    ".vitepress/theme/index.ts",
-    ".vitepress/**/*.ts"
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    ".vitepress/**/*.js",
+    ".vitepress/**/*.d.ts",
+    ".vitepress/config.mts"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules", 
+    "dist",
+    ".vitepress/cache"
+  ]
 }
