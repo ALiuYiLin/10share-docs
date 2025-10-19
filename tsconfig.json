@@ -3,22 +3,25 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["esnext"],
-    "types": ["node","vite/client"],
-
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    "lib": ["esnext","DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [".vitepress/src/*"]
+    },
     "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
+    "jsx": "preserve"
   },
-  "exclude": ["node_modules", "dist"]
+
+  "include": [
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    ".vitepress/**/*.js",
+    ".vitepress/**/*.d.ts",
+    ".vitepress/config.mts"
+  ],
+  "exclude": [
+    "node_modules", 
+    "dist",
+    ".vitepress/cache"
+  ]
 }

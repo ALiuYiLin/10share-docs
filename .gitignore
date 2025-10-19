@@ -25,3 +25,4 @@ logs
 
 .vitepress/cache
 .vscode
+docs/temp

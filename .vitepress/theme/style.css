@@ -1,12 +1,1 @@
-
-html {
-  font-family: Arial, Helvetica;
-}
-body {
-  margin: 0;
-}
-
-#this-is-an-excerpt {
-  display: none;
-}
-
+@import "tailwindcss";
