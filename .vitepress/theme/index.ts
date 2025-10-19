@@ -2,7 +2,6 @@
 import Layout from '@/layout/Layout.vue'
 import type { Theme } from 'vitepress'
 import './style.css'
-
 export default {
   Layout,
   enhanceApp({ app, router, siteData }) {

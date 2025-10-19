@@ -1,7 +1,8 @@
 import { config } from './src/config'
-import { build, defineConfig } from 'vitepress'
+import {defineConfig } from 'vitepress'
+
 // https://vitepress.dev/reference/site-config
-import tailwindcss from '@tailwindcss/vite'
+
 import { buildSidebar } from './src/utils/sider-builder'
 
 export default defineConfig({
@@ -18,10 +19,6 @@ export default defineConfig({
       alias: {
         '@': config.project.SRC_ROOT
       }
-    },
-    plugins:[
-      // @ts-ignore
-      tailwindcss()
-    ]
+    }
   }
 })
