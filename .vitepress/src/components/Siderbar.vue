@@ -19,7 +19,9 @@ const pmenu = useTemplateRef('pmenu')
   height: calc(100vh - 60px);
   z-index: 100;
   overflow-y: scroll;
+  overflow-x: hidden;
   background: #fff;
+  padding: 10px 15px;
   @apply fixed top-[60px] left-0;
 }
 </style>
