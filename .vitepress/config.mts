@@ -1,5 +1,6 @@
 import { config } from './src/config'
 import {defineConfig } from 'vitepress'
+import tailwindcss from '@tailwindcss/vite' // Import the plugin
 
 // https://vitepress.dev/reference/site-config
 
