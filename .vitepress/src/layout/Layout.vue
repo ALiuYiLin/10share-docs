@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import '@/assets/style/base.css'
-import { useSiderBar } from '@/composables/use-siderbar'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import Siderbar from '@/components/Siderbar.vue'
-const { siderbar, frontmatterMap } = useSiderBar()
-console.log('siderbar: ', siderbar)
+import { useLayout } from '@/router'
+const { currentView } = useLayout()
+
 </script>
 
 <template>
@@ -14,7 +14,9 @@ console.log('siderbar: ', siderbar)
     <main>
       <Siderbar></Siderbar>
       <div class="main-content">
-        <Content class="flex-1"></Content>
+         <div class="flex-1 p-5">
+            <component :is="currentView"></component>
+         </div>
         <Footer></Footer>
       </div>
     </main>
@@ -25,10 +27,14 @@ console.log('siderbar: ', siderbar)
 .layout {
   min-height: 100vh;
 }
-main {
-  min-height: calc(100vh - 60px);
-}
 .main-content {
+  min-height: calc(100vh - 60px);
   @apply flex flex-col ml-[300px]  justify-center;
+}
+
+@media screen and (max-width: 996px) {
+  .main-content{
+    margin-left: 0;
+  }
 }
 </style>

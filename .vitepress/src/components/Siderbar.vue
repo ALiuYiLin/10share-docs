@@ -14,6 +14,8 @@ const pmenu = useTemplateRef('pmenu')
 </template>
 
 <style scoped>
+
+
 .siderbar {
   width: 300px;
   height: calc(100vh - 60px);
@@ -23,5 +25,11 @@ const pmenu = useTemplateRef('pmenu')
   background: #fff;
   padding: 10px 15px;
   @apply fixed top-[60px] left-0;
+}
+
+@media screen and (max-width: 996px) {
+  .siderbar{
+    display: none;
+  }
 }
 </style>
