@@ -1,17 +1,25 @@
 <script lang="ts" setup>
 import Card from '@/components/card.vue';
 import { useSiderBar } from '@/composables/use-siderbar';
+import { useRouter } from 'vitepress';
 
 const { currentSiderbarItem } = useSiderBar()
-console.log('currentSiderbarItem: ', currentSiderbarItem);
-
+const router = useRouter()
+function go(item: SidebarItem){
+  if(item.collapsed){
+    router.go('/whale-docs'+ item.link!+ '/')
+  }
+  else{
+    router.go('/whale-docs'+ item.link!)
+  }
+}
 </script>
 <template>
   <div>
     <ul class="dir--list">
       <li v-for="item in currentSiderbarItem.items">
-        <Card>
-          <div>
+        <Card >
+          <div @click="go(item)">
             <p>{{ item.collapsed  ?'🗃️':'📄' }}{{ item.text }}</p>
             <p v-if="item.collapsed">{{ item.items?.length }}个项目</p>
             <p v-else>...</p>

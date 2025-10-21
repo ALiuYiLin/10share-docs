@@ -26,6 +26,8 @@ export function useSiderBar(){
   const route = useRoute()
   const siderbar = theme.value.sidebar as SidebarItem[] 
   const clonedSiderbar = lodash.cloneDeep(siderbar)
+  // 排序将文件夹排到前面
+  
 
   // 构建frontmatter映射表
   const frontmatterMap: Record<string,Record<string,any>> = Object.fromEntries(

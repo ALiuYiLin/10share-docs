@@ -30,6 +30,9 @@ importers:
       '@types/node':
         specifier: ^24.6.2
         version: 24.6.2
+      '@vueuse/core':
+        specifier: 14.0.0-alpha.0
+        version: 14.0.0-alpha.0(vue@3.5.22)
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
@@ -826,6 +829,11 @@ packages:
   '@vueuse/core@12.8.2':
     resolution: {integrity: sha512-HbvCmZdzAu3VGi/pWYm5Ut+Kd9mn1ZHnn4L5G8kOQTPs/IwIAmJoBrmYk2ckLArgMXZj0AW3n5CAejLUO+PhdQ==}
 
+  '@vueuse/core@14.0.0-alpha.0':
+    resolution: {integrity: sha512-y2964MhoYalRdiBX+ilOOwh3EHsZyDhOb/hwZTkLlytcVrtX+Gbz+ffsAomaazJzZ7m/u+KI/5hLEdSHhjelgA==}
+    peerDependencies:
+      vue: ^3.5.0
+
   '@vueuse/integrations@12.8.2':
     resolution: {integrity: sha512-fbGYivgK5uBTRt7p5F3zy6VrETlV9RtZjBqd1/HxGdjdckBgBM4ugP8LHpjolqTj14TXTxSK1ZfgPbHYyGuH7g==}
     peerDependencies:
@@ -870,8 +878,16 @@ packages:
   '@vueuse/metadata@12.8.2':
     resolution: {integrity: sha512-rAyLGEuoBJ/Il5AmFHiziCPdQzRt88VxR+Y/A/QhJ1EWtWqPBBAxTAFaSkviwEuOEZNtW8pvkPgoCZQ+HxqW1A==}
 
+  '@vueuse/metadata@14.0.0-alpha.0':
+    resolution: {integrity: sha512-FyQ7kAVMnccJwp0Wt2JuEjCNGl4lpOXKQEqzTbiqhKydQBK0urGaa+v12u8qJxf4XaaPNufLdoCQYQh8ya63JQ==}
+
   '@vueuse/shared@12.8.2':
     resolution: {integrity: sha512-dznP38YzxZoNloI0qpEfpkms8knDtaoQ6Y/sfS0L7Yki4zh40LFHEhur0odJC6xTHG5dxWVPiUWBXn+wCG2s5w==}
+
+  '@vueuse/shared@14.0.0-alpha.0':
+    resolution: {integrity: sha512-J8cmTJkB0hAwPBXRR5U3N9FJkhPBrhyYiQm21kZ3j/o8W69Pg6JlPSxLOJtkg+AwC/r5x7Gpq2Vglv84vHotwA==}
+    peerDependencies:
+      vue: ^3.5.0
 
   algoliasearch@5.40.1:
     resolution: {integrity: sha512-iUNxcXUNg9085TJx0HJLjqtDE0r1RZ0GOGrt8KNQqQT5ugu8lZsHuMUYW/e0lHhq6xBvmktU9Bw4CXP9VQeKrg==}
@@ -2386,6 +2402,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  '@vueuse/core@14.0.0-alpha.0(vue@3.5.22)':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 14.0.0-alpha.0
+      '@vueuse/shared': 14.0.0-alpha.0(vue@3.5.22)
+      vue: 3.5.22
+
   '@vueuse/integrations@12.8.2(focus-trap@7.6.5)':
     dependencies:
       '@vueuse/core': 12.8.2
@@ -2398,11 +2421,17 @@ snapshots:
 
   '@vueuse/metadata@12.8.2': {}
 
+  '@vueuse/metadata@14.0.0-alpha.0': {}
+
   '@vueuse/shared@12.8.2':
     dependencies:
       vue: 3.5.22
     transitivePeerDependencies:
       - typescript
+
+  '@vueuse/shared@14.0.0-alpha.0(vue@3.5.22)':
+    dependencies:
+      vue: 3.5.22
 
   algoliasearch@5.40.1:
     dependencies:

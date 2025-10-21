@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.6.2",
+    "@vueuse/core": "14.0.0-alpha.0",
     "autoprefixer": "^10.4.21",
     "glob": "^11.0.3",
     "lodash": "^4.17.21",
