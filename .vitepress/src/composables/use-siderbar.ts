@@ -2,7 +2,7 @@ import { data as mdsContent} from '@/utils/content-load.data'
 import { useData, useRoute } from 'vitepress'
 import lodash from 'lodash'
 import { flattenTreeToKeyedObject } from '@/utils'
-import { computed } from 'vue'
+import { ref, watch } from 'vue'
 const base_url = '/whale-docs'
 /**
  * /temp/xxx.html => /temp/xxx
@@ -38,9 +38,14 @@ export function useSiderBar(){
   
 
   // 获取当前路径下siderbarItem
-  const currentSiderbarItem = computed(()=>{
-    return siderbarItemMap[resolvedUrl(route.path)]
-  })
+  // const currentSiderbarItem = computed(()=>{
+  //   return siderbarItemMap[resolvedUrl(route.path)]
+  // })
+  const currentSiderbarItem = ref<SidebarItem|null>(null)
+  watch(()=>route.path,(val)=>{
+    currentSiderbarItem.value = siderbarItemMap[resolvedUrl(val)]
+  },{immediate: true})
+
 
 
   // 递归解析siderbar
@@ -49,14 +54,12 @@ export function useSiderBar(){
       const frontmatter = frontmatterMap[item.link!]
       // 更新 text
       if(frontmatter?.text) item.text = frontmatter.text
-
       // 递归子项
       if(Array.isArray(item.items) && item.items.length > 0) resolvesSiderbar(item.items)
     }
   }
   // 获取当前页面 except 摘要
   function getExcerpt(item:SidebarItem){
-    console.log('frontmatterMap[item.link!].except: ', frontmatterMap[item.link!].except);
     return frontmatterMap[item.link!].excerpt || '...'
   }
   

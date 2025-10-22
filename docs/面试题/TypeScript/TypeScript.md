@@ -1,8 +1,7 @@
 ---
-title: TypeScript
+excerpt: TypeScript是一种有微软开发的开源编程语言。它可以被看作是JavaScript的超集。
 ---
-TypeScript是一种有微软开发的开源编程语言。它可以被看作是**JavaScript的超集**。
----
+
 ## 一、TypeScript是什么？
 
 TypeScript是一种有微软开发的开源编程语言。它可以被看作是**JavaScript的超集**。

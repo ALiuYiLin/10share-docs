@@ -13,6 +13,7 @@ export default defineConfig({
   base: config.project.BASE_URL + '/',
   themeConfig: {
     sidebar: [buildSidebar(config.project.DOCS_ROOT)],
+    outlineTitle: '页面路由'
   },
   vite: {
     resolve: {

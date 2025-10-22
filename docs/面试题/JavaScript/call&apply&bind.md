@@ -1,3 +1,6 @@
+---
+excerpt: apply&call&bind区别,都可以改变this对象指向
+---
 ### apply&call&bind区别
 
 #### 相同点

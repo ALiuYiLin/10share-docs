@@ -17,7 +17,7 @@ const { currentSiderbarItem } = useSiderBar()
          <div class="flex-1 p-5 flex flex-row">
            <div class="main-content--left"></div>
            <div class="flex-1">
-              <h1 class="text-5xl font-bold p-[10px] pl-0 mb-5">{{ currentSiderbarItem.text }}</h1>
+              <h1 class="text-5xl font-bold p-[10px] pl-0 mb-5">{{ currentSiderbarItem?.text }}</h1>
               <component :is="currentView"></component>
             </div>
          </div>

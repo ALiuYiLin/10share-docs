@@ -1,9 +1,6 @@
 ---
-title: reactive
+excerpt: reactive 和ref的区别
 ---
-reactive 和ref的区别
----
-
 
 |特性|ref()|reactive()|
 | -- | -- | -- |

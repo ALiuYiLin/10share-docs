@@ -17,9 +17,10 @@ function go(item: SidebarItem){
 <template>
   <div>
     <ul class="dir--list">
-      <li v-for="item in currentSiderbarItem.items">
+      <li v-for="item in currentSiderbarItem?.items">
         <Card >
           <div @click="go(item)">
+            <!-- <p class="text-2xl">{{ item.collapsed  ?'🗃️':'📄' }}{{ item.text }}</p> -->
             <p class="text-2xl">{{ item.collapsed  ?'🗃️':'📄' }}{{ item.text }}</p>
             <p  v-if="item.collapsed">{{ item.items?.length }}个项目</p>
             <p class="text--truncate" v-else>{{ getExcerpt(item) }}</p>
@@ -36,12 +37,12 @@ function go(item: SidebarItem){
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .dir--list {
   --li-width: 50%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  max-width: 960px;
 }
 .dir--list > li {
   width: var(--li-width);

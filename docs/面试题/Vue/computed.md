@@ -1,10 +1,8 @@
 ---
-title: computed
----
-computed缓存
+excerpt: computed缓存
 ---
 
-什么事computed缓存机制
+什么是computed缓存机制
 在vue3中，computed()返回的是一个特殊的ref对象，
 它有一个内部的缓存系统：
 

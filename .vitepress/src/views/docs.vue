@@ -32,6 +32,7 @@ import VPDocAsideOutline from '@/components/VPDocAsideOutline.vue'
 }
 .content {
   width: 100%;
+  overflow: hidden;
 }
 @media screen and (min-width: 1280px) {
   .vp-doc--left {
