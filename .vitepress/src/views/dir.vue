@@ -3,7 +3,7 @@ import Card from '@/components/card.vue';
 import { useSiderBar } from '@/composables/use-siderbar';
 import { useRouter } from 'vitepress';
 
-const { currentSiderbarItem } = useSiderBar()
+const { currentSiderbarItem,getExcerpt } = useSiderBar()
 const router = useRouter()
 function go(item: SidebarItem){
   if(item.collapsed){
@@ -20,9 +20,9 @@ function go(item: SidebarItem){
       <li v-for="item in currentSiderbarItem.items">
         <Card >
           <div @click="go(item)">
-            <p>{{ item.collapsed  ?'🗃️':'📄' }}{{ item.text }}</p>
-            <p v-if="item.collapsed">{{ item.items?.length }}个项目</p>
-            <p v-else>...</p>
+            <p class="text-2xl">{{ item.collapsed  ?'🗃️':'📄' }}{{ item.text }}</p>
+            <p  v-if="item.collapsed">{{ item.items?.length }}个项目</p>
+            <p class="text--truncate" v-else>{{ getExcerpt(item) }}</p>
           </div>
         </Card>
       </li>
@@ -31,7 +31,11 @@ function go(item: SidebarItem){
 </template>
 
 <style scoped>
-
+.text--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .dir--list {
   --li-width: 50%;

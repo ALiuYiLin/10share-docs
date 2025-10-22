@@ -1,5 +1,5 @@
 ---
-title: 代码压缩
+excerpt: vite-plugin-compression插件压缩代码成gzip格式或者br格式，nginx开启gzip，http缓存策略。
 ---
 ### 代码压缩
 c压缩代码

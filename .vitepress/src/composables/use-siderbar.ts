@@ -54,13 +54,18 @@ export function useSiderBar(){
       if(Array.isArray(item.items) && item.items.length > 0) resolvesSiderbar(item.items)
     }
   }
-
+  // 获取当前页面 except 摘要
+  function getExcerpt(item:SidebarItem){
+    console.log('frontmatterMap[item.link!].except: ', frontmatterMap[item.link!].except);
+    return frontmatterMap[item.link!].excerpt || '...'
+  }
   
   resolvesSiderbar(clonedSiderbar)
   return {
     siderbar: clonedSiderbar,
     frontmatterMap,
-    currentSiderbarItem
+    currentSiderbarItem,
+    getExcerpt
   }
 
 }
