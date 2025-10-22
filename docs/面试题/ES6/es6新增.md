@@ -1,7 +1,5 @@
 ---
-title: ES6新增特性
----
-块级作用域的let和const，还有箭头函数、对象解构赋值、Promise等等，这些特性让JavaScript代码写起来更简洁、更易读啦。
+excerpt: 块级作用域的let和const，还有箭头函数、对象解构赋值、Promise等等，这些特性让JavaScript代码写起来更简洁、更易读啦。
 ---
 ### 一、变量声明
 ES6之前只有var声明变量，存在作用域模糊（函数作用域）、重复声明、变量提升等问题。ES6新增let和const，提供块级作用域。

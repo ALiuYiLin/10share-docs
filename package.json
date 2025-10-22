@@ -13,13 +13,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/typography": "^0.5.14",
     "@tailwindcss/vite": "^4.1.14",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.6.2",
+    "@vueuse/core": "14.0.0-alpha.0",
+    "autoprefixer": "^10.4.21",
     "glob": "^11.0.3",
     "lodash": "^4.17.21",
-    "tailwindcss": "^4.1.14"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.10"
   },
   "dependencies": {
     "vite": "^7.1.9",

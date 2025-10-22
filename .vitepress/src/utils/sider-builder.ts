@@ -11,6 +11,21 @@ export function buildSidebar(cwd: string): SidebarItem {
     items: [],
   };
 
+  
+
+  // --- 递归子文件夹 ---
+  const dirs = globSync("*/", { cwd });
+  if(dirs.length > 0) siderBarItem.collapsed = true
+  for (const dir of dirs) {
+    const subPath = path.resolve(cwd, dir);
+    const subSidebar = buildSidebar(subPath);
+    if (subSidebar.items?.length || subSidebar.link) {
+      siderBarItem.items!.push(subSidebar);
+    }
+  }
+
+
+
   // --- 读取该目录下的 .md 文件 ---
   const mdFiles = globSync("*.md", { cwd });
   if(mdFiles.length > 0 ) siderBarItem.collapsed = true
@@ -27,16 +42,6 @@ export function buildSidebar(cwd: string): SidebarItem {
       link: fileUrl.replace('.md',''),
     });
   }
-
-  // --- 递归子文件夹 ---
-  const dirs = globSync("*/", { cwd });
-  if(dirs.length > 0) siderBarItem.collapsed = true
-  for (const dir of dirs) {
-    const subPath = path.resolve(cwd, dir);
-    const subSidebar = buildSidebar(subPath);
-    if (subSidebar.items?.length || subSidebar.link) {
-      siderBarItem.items!.push(subSidebar);
-    }
-  }
+  
   return siderBarItem;
 }
