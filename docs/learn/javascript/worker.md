@@ -79,3 +79,41 @@ postMessage("a really cool reply")
 你还可以通过importScripts(...)向worker加载额外的JavaScript脚本。
 // 在worker内部
 importScripts('foo.js', 'bar.js');
+
+web worker 通常应用于那些方面呢？
+- 处理密集型数据计算
+- 大数据集排序
+- 数据压缩（压缩、音频分析、图像处理等）
+- 高流量网络通信
+
+#### 数据传递
+
+结构化克隆算法,把这个对象复制到另一边。这个算法非常高级，甚至可以处理要复制的对象有循环引用的情况。这样就不用付出to-string和from-string的性能损失，但是这种方案还是要使用双倍内存。
+
+还有一个更好的选择，特别是对于大数据而言，就是使用transferable对象。这时发生的是对象所有权的转移，数据本身本没有移动。一旦你把对象传递到一个worker中，在原来的位置上，它就变为空的或者是不可访问的，这样就消除了多线程编程作用域共享带来的混乱。当然，所有权传递是可以双向进行的。
+
+
+如果选择Transferable对象的话，其实不需要做什么。任何实现了Transferable接口的数据结构就自动按照这种方式传输。
+
+举例来说，像Uint8Array这样的带类型的数组就是Transferable。
+
+postMessage（foo.buffer, [foo.buffer]）
+第一个参数是原始缓冲区，第二个是一个要传输的内容的列表。
+不支持Transferable对象的浏览器就降级到结构化克隆，这会带来性能下降而不是彻底的功能失效。
+
+#### 共享worker
+如果你的站点或app允许加载同一个页面的多个tab，那你可能非常希望通过防止重复专用worker来降低系统资源的使用。在这一方面最常见的有限资源就是socket网络连接，因为浏览器限制了到同一个主机的同时连接数目。当然，限制来自于同一客户端的连接数也减轻了你的资源压力。
+
+这种情况下，创建一整个站点或app的所有页面实例都可以共享的中心worker就非常有用了。
+
+这称为SharedWorker
+
+var wl = new SharedWorker()
+
+因为共享worker可以与站点的多个程序实例或多个页面连接，所以这个worker需要通过某种方式来得知消息来自于哪个程序。这个唯一标识符称为端口，可以类比网络socket的端口。因此，调用程序必须使用worker的port对象用与通信。
+wl.port.addEventListener('message',handleMessage)
+wl.port.postMesssage('something cool')
+
+还有端口连接必须要初始化
+wl.port.start()
+
